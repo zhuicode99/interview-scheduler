@@ -9,13 +9,13 @@ afterEach(cleanup);
 it("renders without crashing", () => {
   render(<Button />);
 });
-
-it.skip("renders its `children` prop as text", () => {
+//it 后面加 。skip可以跳过test
+it("renders its `children` prop as text", () => {
   const { getByText } = render(<Button>Default</Button>);
   expect(getByText("Default")).toBeInTheDocument();
 });
 
-it.skip("renders a default button style", () => {
+it("renders a default button style", () => {
   const { getByText } = render(<Button>Default</Button>);
   expect(getByText("Default")).toHaveClass("button");
 });
