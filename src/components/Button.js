@@ -2,16 +2,13 @@ import React from "react";
 
 import "components/Button.scss";
 
+import classNames from "classnames";
+
 export default function Button(props) {
-   let buttonClass = "button";
 
-  if (props.confirm) { //就是stories中的confirm
-    buttonClass += " button--confirm";
-  }
-
-  if (props.danger) {
-   buttonClass += " button--danger";
- }
+ let buttonClass = classNames("button", {"button--confirm":props.confirm, "button--danger":props.danger})
+ //如果confirm为false（不存在），那一条的classname就是“button”
+ //如果存在，就是“button 和 button--confirm都适用那一条
  
 
 
