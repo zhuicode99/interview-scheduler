@@ -11,8 +11,8 @@ export default function DayList(props){
         key={day.id}
         name={day.name} 
         spots={day.spots} 
-        selected={day.name === props.day}//props.day是从app。js传过来的
-        setDay={() => props.setDay(day.name)}  
+        selected={day.name === props.value}//props.day是从app。js传过来的
+        setDay={() => props.onChange(day.name)}  
       />
     </ul>
   )
