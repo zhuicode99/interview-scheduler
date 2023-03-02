@@ -7,7 +7,7 @@ import InterviewerList from "./InterviewerList";
 export default function Application(props) {
 
   const [ day, setDay ] = useState("Monday");
-  const [ interviewer, setInterviewer] = useState("2");
+  const [ interviewer, setInterviewer] = useState("");
 
   const interviewers = [
     { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },

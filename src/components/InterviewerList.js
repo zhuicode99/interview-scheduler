@@ -11,7 +11,8 @@ export default function InterviewerList(props) {
         name={interviewer.name} 
         avatar={interviewer.avatar} 
         selected={interviewer.id === props.interviewer}//props.day是从app。js传过来的
-        setInterviewer={props.setInterviewer}  
+        setInterviewer={() => props.setInterviewer(interviewer.id)} 
+        //这样不会一刷新页面就trigger function
       />
     </ul>
   )

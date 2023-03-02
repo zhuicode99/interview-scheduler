@@ -12,7 +12,7 @@ export default function DayList(props){
         name={day.name} 
         spots={day.spots} 
         selected={day.name === props.day}//props.day是从app。js传过来的
-        setDay={props.setDay}  
+        setDay={() => props.setDay(day.name)}  
       />
     </ul>
   )
