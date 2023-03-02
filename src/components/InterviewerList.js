@@ -1,6 +1,6 @@
 import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
-
+import "components/InterviewerList.scss"
 
 export default function InterviewerList(props) {
   const interviewerListItem = props.interviewers.map((interviewer) => {
@@ -17,7 +17,11 @@ export default function InterviewerList(props) {
   )
 })
   return (
-   interviewerListItem
+  
+  <section className="interviewers">
+    <h4 className="interviewers__header text--light">Interviewer</h4>
+    <ul className="interviewers__list">{interviewerListItem}</ul>
+  </section>
+  
   )
-
 }
