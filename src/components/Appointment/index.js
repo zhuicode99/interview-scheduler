@@ -13,15 +13,15 @@ export default function Appointment(props) {
   //Even though we are using index.js to create 
   //our main <Appointment> component, 
   //we still use the syntax export default function Appointment.
-const appt = props.interview? <Show/>:<Empty/>
+
 
   return (
-<>
+<Fragment>
 <article className="appointment"></article>
 <Header time={props.time}/>
 {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty />}
 {/* 如果有interview，从appointment props传来的interview信息里提取student和interviewer信息pass down to show comp */}
-</>
+</Fragment>
 
   )
 
