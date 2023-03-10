@@ -12,6 +12,14 @@ export default function Application(props) {
   const [days, setDays] = useState([]);
   const [ interviewer, setInterviewer] = useState("");
 
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    interviewer: "",
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    /* appointments: {} */
+  });
+
 useEffect(()=>{
   axios.get("http://localhost:8001/api/days")
   .then(response=>{
