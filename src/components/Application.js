@@ -8,9 +8,8 @@ import axios from 'axios';
 
 export default function Application(props) {
 
-  const [ day, setDay ] = useState("Monday");
-  const [days, setDays] = useState([]);
-  const [ interviewer, setInterviewer] = useState("");
+/* 
+  const [ interviewer, setInterviewer] = useState(""); */
 
   const [state, setState] = useState({
     day: "Monday",
@@ -19,7 +18,10 @@ export default function Application(props) {
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
     /* appointments: {} */
   });
-
+  const setDay = day => setState({ ...state, day });
+  //通常来说，对于只更新一个属性的状态更新函数，不需要使用函数式更新或者 prev 参数。因为这些函数只更新一个属性，不需要关心其他属性的值是否已经更新。
+  const setDays = (days) => setState(prev => ({ ...prev, days }));
+  const setInterviewer = (interviewer) => setState(prev => ({ ...prev, interviewer }));
 useEffect(()=>{
   axios.get("http://localhost:8001/api/days")
   .then(response=>{
@@ -95,8 +97,8 @@ useEffect(()=>{
         />
         <hr className="sidebar__separator sidebar--centered" />
         <DayList
-          days={days}
-          value={day}
+          days={state.days}
+          value={state.day}
           onChange={setDay}
         />
         <nav className="sidebar__menu"></nav>
@@ -111,7 +113,7 @@ useEffect(()=>{
       <Appointment key="last" time="5pm" />
       <InterviewerList 
         interviewers={interviewers}
-        value={interviewer}
+        value={state.interviewer}
         onChange={setInterviewer}
         />
       </section>
