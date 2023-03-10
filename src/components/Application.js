@@ -5,6 +5,7 @@ import DayList from "./DayList";
 import InterviewerList from "./InterviewerList";
 import Appointment from "./Appointment";
 import axios from 'axios';
+import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function Application(props) {
 
@@ -14,20 +15,36 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    interviewer: "",
+    interviewer: {},
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    /* appointments: {} */
+    appointments: {}
   });
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  //这里的state就是axios返回的all数据，state。day就是上面的monday。
+
   const setDay = day => setState({ ...state, day });
+  //setDay function can remain because we are only using it to update our DayList component.
   //通常来说，对于只更新一个属性的状态更新函数，不需要使用函数式更新或者 prev 参数。因为这些函数只更新一个属性，不需要关心其他属性的值是否已经更新。
-  const setDays = (days) => setState(prev => ({ ...prev, days }));
+  
+  /* const setDays = (days) => setState(prev => ({ ...prev, days })); */
+ //这setdays function不需要保留了，没啥需要更新的
   const setInterviewer = (interviewer) => setState(prev => ({ ...prev, interviewer }));
-useEffect(()=>{
-  axios.get("http://localhost:8001/api/days")
-  .then(response=>{
-    setDays(response.data);
+
+  useEffect(()=>{
+    Promise.all([
+      axios.get("http://localhost:8001/api/days"),
+      axios.get("http://localhost:8001/api/appointments"),
+      axios.get("http://localhost:8001/api/interviewers"),
+    ])
+  .then((all) =>{
+    setState((prev) => ({
+      ...prev,
+      days: all[0].data,
+      appointments: all[1].data,
+      interviewers: all[2].data,
+    }));
+    })
   },[])
-})
 
   const interviewers = [
     { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -38,47 +55,10 @@ useEffect(()=>{
   ];
 
   
-  const appointments = {
-    "1": {
-      id: 1,
-      time: "12pm",
-    },
-    "2": {
-      id: 2,
-      time: "1pm",
-      interview: {
-        student: "Lydia Miller-Jones",
-        interviewer:{
-          id: 3,
-          name: "Sylvia Palmer",
-          avatar: "https://i.imgur.com/LpaY82x.png",
-        }
-      }
-    },
-    "3": {
-      id: 3,
-      time: "2pm",
-    },
-    "4": {
-      id: 4,
-      time: "3pm",
-      interview: {
-        student: "Archie Andrews",
-        interviewer:{
-          id: 4,
-          name: "Cohana Roy",
-          avatar: "https://i.imgur.com/FK8V841.jpg",
-        }
-      }
-    },
-    "5": {
-      id: 5,
-      time: "4pm",
-    }
-  };
 
 
-  const appointmentList = Object.values(appointments).map(
+
+  const appointmentList = dailyAppointments.map(
     appointment => {
       return (
         <Appointment
