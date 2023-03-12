@@ -13,3 +13,15 @@ export function getAppointmentsForDay(state, day) {
 
   return result;
 }
+
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  }
+  
+  return {
+    student: interview.student, //appointment api里面的interview
+    interviewer: state.interviewers[interview.interviewer],
+  };//interviewer api里面的数据
+
+}
