@@ -6,11 +6,24 @@ export default function Appointment(props) {
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-
+  const [error, setError] = useState('');
 
   const reset = () => {
 		setStudent('');
 		setInterviewer(null);
+	};
+
+  const errorHandle = () => {
+		if (student === '') {
+			setError('Student name cannot be blank');
+			return;
+		}
+		if (interviewer === null) {
+			setError('You must choose an interviewer');
+			return;
+		}
+		setError('');
+		props.onSave(student, interviewer);
 	};
 
 
@@ -31,22 +44,21 @@ export default function Appointment(props) {
             onChange={(event)=> {
               setStudent(event.target.value)
             }}
-            /*
-              This is controlled component
-            */
           />
+          <section className="appointment__errorHandle">{error}</section>
+          
         </form>
         {/* bottom part */}
         <InterviewerList 
           interviewers={props.interviewers} 
-          value={props.interviewer}
-          onChange={props.setInterviewer}
+          value={interviewer}
+          onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={errorHandle}>Save</Button>
         </section>
       </section>
     </main>

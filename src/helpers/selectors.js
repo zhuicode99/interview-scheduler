@@ -25,3 +25,22 @@ export function getInterview(state, interview) {
   };//interviewer api里面的数据
 
 }
+
+export function getInterviewersForDay(state, day) {
+  const result = [];
+  const filteredDay = state.days.filter(data => data.name === day)
+
+  if (filteredDay.length === 0) return [];
+
+  for (const temp of filteredDay[0].interviewers) {
+    result.push(state.interviewers[temp]);
+  }
+
+  filteredDay.forEach((eachItem)=>{
+    eachItem.interviewers.forEach((num)=>{
+      result.push(state.interviewers[num])
+    })
+  })
+  
+  return result;
+};
