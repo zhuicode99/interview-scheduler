@@ -50,7 +50,7 @@ export default function Appointment(props) {
   };
 
   return (
-    <article className="appointment" data-testid="appointment">
+    <article className="appointment" >
       <Header
       time={props.time}
       />
@@ -74,7 +74,7 @@ export default function Appointment(props) {
         <Form
           name={props.interview.student}
           interviewers={props.interviewers}
-          interviewer={props.interview.interviewer}
+          interviewer={props.interview.interviewer.id}
           onSave={save}
           onCancel={back}
         />}

@@ -65,7 +65,7 @@ export default function useApplicationData() {
           [id]: appointment
         };
   
-        return axios.put(`/api/appointments/${id}`, appointment)
+        return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
         .then(res => {
           setState({...state, days, appointments});
         })
@@ -87,7 +87,7 @@ export default function useApplicationData() {
           [id]: appointment
         };
   
-        return axios.delete(`/api/appointments/${id}`)
+        return axios.delete(`http://localhost:8001/api/appointments/${id}`)
         .then(res => {
           setState({...state, days, appointments});
         })

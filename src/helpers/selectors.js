@@ -32,10 +32,6 @@ export function getInterviewersForDay(state, day) {
 
   if (filteredDay.length === 0) return [];
 
-  for (const temp of filteredDay[0].interviewers) {
-    result.push(state.interviewers[temp]);
-  }
-
   filteredDay.forEach((eachItem)=>{
     eachItem.interviewers.forEach((num)=>{
       result.push(state.interviewers[num])
